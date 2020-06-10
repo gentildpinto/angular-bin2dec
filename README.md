@@ -2,7 +2,7 @@
 
 Idea from [here](https://github.com/florinpop17/app-ideas)
 
-<!-- **Demo**: [heroku](https://teste.com) -->
+**Demo**: [heroku](https://bintodec.herokuapp.com/)
 
 **Tier:** 1-Beginner
 
