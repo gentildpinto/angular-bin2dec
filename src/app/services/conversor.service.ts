@@ -2,54 +2,43 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ConversorService {
 
-  constructor(
-    private snackBar: MatSnackBar
-  ) { }
+    private _validKeys = ['Backspace', 'Delete', '0', '1'];
 
-  public showMessage(msg: string): void {
-    this.snackBar.open(msg, 'x', {
-      duration: 3000,
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      panelClass: 'msg-error'
-    });
-  }
+    constructor(
+        private _snackBar: MatSnackBar
+    ) { }
 
-  private isNumber(num: any){
-    return !isNaN(parseFloat(num)) && isFinite(num);
-  }
-
-  public cannotContainANonBinaryDigit(value: string): boolean {
-    if ((value as string).indexOf(' ') >= 0 || !this.isNumber(value)) {
-      return true;
+    public showMessage(msg: string): void {
+        this._snackBar.open(msg, 'x', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            panelClass: 'msg-error'
+        });
     }
-    else if (value !== null) {
-      const binaryNumber = (value as string).split('');
-      const size = binaryNumber.length;
-      for (let i = 0; i < size; i++) {
-        if ((binaryNumber as unknown as number)[i] < 0 || (binaryNumber as unknown as number)[i] > 1) {
-          return true;
+
+    public isNotAValidDigit(value: KeyboardEvent): boolean {
+        if (this._validKeys.includes(value.key) || value.keyCode <= 31) {
+            return false;
         }
-      }
-    }
-    return false;
-  }
-
-  public conversor(valueParam: any): string {
-    const value = (valueParam as string).split('');
-    const size = value.length;
-    let idx = size - 1;
-    let decimalValue = 0;
-
-    for (let i = 0; i < size; i++) {
-      decimalValue += (value[i] as unknown as number) * (2 ** idx);
-      idx -= 1;
+        return true;
     }
 
-    return (decimalValue as unknown as string);
-  }
+    public conversor(valueParam: any): string {
+        const value = (valueParam as string).split('');
+        const size = value.length;
+        let idx = size - 1;
+        let decimalValue = 0;
+
+        for (let i = 0; i < size; i++) {
+            decimalValue += (value[i] as unknown as number) * (2 ** idx);
+            idx -= 1;
+        }
+
+        return (decimalValue as unknown as string);
+    }
 }

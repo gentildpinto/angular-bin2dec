@@ -9,7 +9,7 @@
         <form [formGroup]="form">
             <mat-form-field appearance="outline">
                 <mat-label>Valor a ser convertido (Em binário)</mat-label>
-                <input (keyup)="digit()" formControlName="binaryNumberInput" name="binaryNumberInput" id="binaryNumberInput" type="text" aria-label="Binary Number" matInput>
+                <input (keyup)="digit($event)" formControlName="binaryNumberInput" name="binaryNumberInput" id="binaryNumberInput" type="text" aria-label="Binary Number" matInput>
                 <mat-icon matSuffix>
                     close
                 </mat-icon>
